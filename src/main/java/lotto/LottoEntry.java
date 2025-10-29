@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 // 로또 발행기 역할을 하는 클래스 입니다.
-//TODO: 여기서 던져진 예외 처리해야함....
 public class LottoEntry {
     private final static int LOTTO_PRICE = 1000;
     private final static int PURCHASE_LIMIT = 1000;
@@ -25,22 +24,41 @@ public class LottoEntry {
     // constructor
     LottoEntry() {
         boolean failed = true;
+        int purchase = handledPurchase();
+        entries = purchase / LOTTO_PRICE;  // 확인 후, 몇번 살지 결정
+        picks = new Picks(entries); // 주어진 만큼 발행
+        printHowManyPicks(picks);
+        setHandledWinningNumbers();
+
+
+    }
+
+    private void setHandledWinningNumbers() {
+        boolean failed = true;
         while (failed) {
             try {
-                int purchase = getPurchase();
-                validatePurchase(purchase);
-                entries = purchase / LOTTO_PRICE;  // 확인 후, 몇번 살지 결정
-                picks = new Picks(entries); // 주어진 만큼 발행
-                printHowManyPicks(picks);
                 winningNumbers = new WinningNumbers(getNumbersFromInput()
                         , getWinningNumbersFromInput());
-
                 failed = false;
             } catch (final IllegalArgumentException e) {
-
+                e.getLocalizedMessage();
             }
         }
+    }
 
+    private int handledPurchase() {
+        boolean failed = true;
+        int purchase = -1;
+        while (failed) {
+            try {
+                purchase = getPurchase();
+                validatePurchase(purchase);
+                failed = false;
+            } catch (final IllegalArgumentException e) {
+                e.getLocalizedMessage();
+            }
+        }
+        return purchase;
     }
 
     LottoEntry(int purchase, List<Integer> numbers, int bonus) {
