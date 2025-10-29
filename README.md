@@ -25,5 +25,69 @@
 "[ERROR]"로 시작하는 에러 메시지를 출력 후 그 부분부터 입력을 다시 받는다.  
 
 ### 사용자 정의 예외 클래스
-사용자 입력 exception handling때 쓰임.  
+사용자 입력 exception handling때 쓰임.  <- lotto class랑의 error handling이랑 통일하는게 좋을지도?
 
+***
+## Sequence Diagram
+# 주의! 확정 아님 
+
+```mermaid
+sequenceDiagram
+actor User
+participant 로또 발행기
+participant 로또 게임
+
+User ->> 로또 발행기: 구입 금액 입력  
+opt 잘못된 값 입력
+    로또 발행기->>User: 예외 발생 및 오류 메시지 표시
+    loop 올바른 값을 입력할때 까지(1000원 단위)
+        User->> 로또 발행기: 구입 금액 입력 
+    end
+end 
+로또 게임 ->> 로또 게임 : 당첨 번호 추첨
+로또 발행기 ->> 로또 게임: 구입 금액 만큼 발행 요청
+로또 게임 ->> 로또 발행기: 구입 금액 만큼 발행
+User ->> 로또 발행기: 당첨번호, 보너스 번호 입력
+opt 잘못된 값 입력
+    로또 발행기->>User: 예외 발생 및 오류 메시지 표시
+        loop 올바른 값을 입력할때 까지
+        User->> 로또 발행기: 당첨 번호,보너스 번호 입력
+    end
+end 
+로또 게임 ->> 로또 발행기: 당첨 통계 및 수익률 전달 
+로또 발행기 ->> User: 발행한 로또 수량, 번호, 당첨 통계 및 수익률 표시 
+```
+
+## Class Diagram
+# 주의! 확정 아님
+winning number랑 picks랑 strategy로 구현할수도??
+```mermaid
+classDiagram
+    class Lotto{
+    List~Integer~ numbers
+    -validate()
+    }
+    
+    class WinningNumbers{
+    }
+    
+    class NumberPicks{
+    }
+    
+    Lotto <|-- WinningNumbers
+    Lotto <|-- NumberPicks
+    
+    class LottoEntry{
+    }
+    class LottoController{
+    }
+    class LottoInput{
+    }
+    class LottoOutput{
+    }
+    
+    LottoController --> Lotto
+    LottoEntry <--> LottoController 
+    LottoInput<-->LottoEntry
+    LottoOutput<-->LottoEntry
+```
