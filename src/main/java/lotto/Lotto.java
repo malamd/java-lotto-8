@@ -25,7 +25,7 @@ public class Lotto {
                     .getTypeAndMessage());
         }
 
-        if (isNotInRange(numbers)) {
+        if (isNotInRange(numbers)) { // 범위 확인
             throw new IllegalArgumentException(SystemMessages.INVALID_LOTTO_NUMBER_RANGE
                     .getTypeAndMessage());
         }
@@ -40,4 +40,10 @@ public class Lotto {
         return numbers.stream().anyMatch(num -> num < MIN_LOTTO_NUMBER
                 || num > MAX_LOTTO_NUMBER);
     }
+
+    @Override
+    public String toString() {
+        return numbers.toString();
+    }
+
 }
