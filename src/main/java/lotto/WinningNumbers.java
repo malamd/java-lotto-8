@@ -8,7 +8,6 @@ public class WinningNumbers extends Lotto {
     private final int bonusNum;
     private final static int MAX_LOTTO_NUMBER = 45;
     private final static int MIN_LOTTO_NUMBER = 0;
-    private final static String GET_INPUT_MESSAGE = "보너스 번호를 입력해 주세요.";
 
     public WinningNumbers(List<Integer> numbers, int bonusNumber) {
         super(numbers);
@@ -16,25 +15,6 @@ public class WinningNumbers extends Lotto {
         bonusNum = bonusNumber;
     }
 
-    public WinningNumbers(){
-        super();
-        int bonusNumber = getWinningNumbersFromInput();
-        validateBonusNumber(bonusNumber);
-        bonusNum = bonusNumber;
-    }
-
-    private int getWinningNumbersFromInput(){
-        System.out.println(GET_INPUT_MESSAGE);
-        String in = Console.readLine();
-        int bonusNumber = -1;
-        try{
-            bonusNumber = Integer.parseInt(in);
-        }catch(final NumberFormatException e){
-            throw new IllegalArgumentException(SystemMessages.INVALID_INTEGER_FORMAT
-                    .getTypeAndMessage());
-        }
-        return bonusNumber;
-    }
 
     private void validateBonusNumber(int bonusNumber) {
         if (isDuplicated(bonusNumber)) {
