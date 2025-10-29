@@ -31,12 +31,13 @@ public class Lotto {
         }
     }
 
-    private boolean isDuplicated(List<Integer> numbers) {
+    protected boolean isDuplicated(List<Integer> numbers) {
         long countDistinct = numbers.stream().distinct().count();
         return countDistinct != numbers.size();
     }
 
-    private boolean isNotInRange(List<Integer> numbers) {
+
+    protected boolean isNotInRange(List<Integer> numbers) {
         return numbers.stream().anyMatch(num -> num < MIN_LOTTO_NUMBER
                 || num > MAX_LOTTO_NUMBER);
     }
@@ -44,6 +45,10 @@ public class Lotto {
     @Override
     public String toString() {
         return numbers.toString();
+    }
+
+    protected List<Integer> getNumbers(){ // 아마 이 방법으론 될거임.. getter를 안쓰고 만들 수가 있나
+        return numbers;
     }
 
 }

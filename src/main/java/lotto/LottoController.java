@@ -17,7 +17,6 @@ public class LottoController {
         entries = purchase/LOTTO_PRICE;
 
         //TODO: set the winning number
-
         picks = new Picks(entries); // 주어진 만큼 발행
     }
 
