@@ -17,8 +17,6 @@ import lotto.common.SystemMessages;
  * 사용자로부터 받은 입력에서 예외를 처리하는 역할 역시 합니다.
  */
 public class LottoEntry {
-    private static final int LOTTO_PRICE = 1000;
-    private static final int PURCHASE_LIMIT = 1000;
     private static final String GET_INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
     private static final String GET_INPUT_NUMBERS_MESSAGE = "당첨 번호를 입력해 주세요.";
     private static final String GET_INPUT_BONUS_MESSAGE = "보너스 번호를 입력해 주세요.";
@@ -30,15 +28,13 @@ public class LottoEntry {
 
     // constructor
     LottoEntry() {
-        boolean failed = true;
-        int purchase = handledPurchase();
-        entries = purchase / LOTTO_PRICE;  // 확인 후, 몇번 살지 결정
+        int purchase = getPurchase();
+        entries = getEntries(purchase);
         picks = new Picks(entries); // 주어진 만큼 발행
     }
 
     LottoEntry(int purchase, List<Integer> numbers, int bonus) {
-        validatePurchase(purchase);
-        entries = purchase / LOTTO_PRICE;
+        entries =  getEntries(purchase);
         picks = new Picks(entries); // 주어진 만큼 발행
     }
 
@@ -67,20 +63,6 @@ public class LottoEntry {
             }
         }
     }
-
-    private int handledPurchase() {
-        int purchase;
-        while (true) {
-            try {
-                purchase = getPurchase();
-                validatePurchase(purchase);
-                return purchase;
-            } catch (final IllegalArgumentException e) {
-                e.getLocalizedMessage();
-            }
-        }
-    }
-
 
     private int getWinningNumbersFromInput() {
         System.out.println(GET_INPUT_NUMBERS_MESSAGE);
@@ -113,6 +95,18 @@ public class LottoEntry {
                 .collect(Collectors.toList());
     }
 
+    private int getEntries(int purchase) {
+        while (true) {
+            try {
+                entries =  new Entries(purchase).getEntries();// 확인 후, 몇번 살지 결정
+                return purchase;
+            } catch (final IllegalArgumentException e) {
+                e.getLocalizedMessage();
+            }
+        }
+    }
+
+
     private int getPurchase() {
         System.out.println(GET_INPUT_PURCHASE_MESSAGE);
         String in = Console.readLine();
@@ -126,12 +120,4 @@ public class LottoEntry {
         return purchase;
     }
 
-    private void validatePurchase(int money) {
-        if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("[ERROR] TODO"); // TODO:
-        }
-        if (money < 0 || money > PURCHASE_LIMIT) { // bound checking
-            throw new IllegalArgumentException("[ERROR] TODO");
-        }
-    }
 }

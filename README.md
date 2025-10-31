@@ -78,13 +78,11 @@ classDiagram
     
     class LottoController{
     }
-    class LottoInput{
-    }
+
     class LottoOutput{
     }
     
     NumberPicks<--LottoController
     LottoController --> Lotto
-    LottoInput<-->LottoController
     LottoOutput<-->LottoController
 ```

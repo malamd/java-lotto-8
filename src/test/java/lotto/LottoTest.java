@@ -1,6 +1,6 @@
 package lotto;
 
-import lotto.domain.Lotto;
+import lotto.domain.LottoMachine;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,21 +13,21 @@ class LottoTest {
     @DisplayName("로또 번호 개수가 6개 보다 많을때 예외 발생.")
     @Test
     void 로또_번호의_개수가_6개가_넘어가면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 6, 7)))
+        assertThatThrownBy(() -> new LottoMachine(List.of(1, 2, 3, 4, 5, 6, 7)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.")
     @Test
     void 로또_번호에_중복된_숫자가_있으면_예외가_발생한다() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
+        assertThatThrownBy(() -> new LottoMachine(List.of(1, 2, 3, 4, 5, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("로또 번호의 개수가 6개 보다 적을때 예외 발생.")
     @Test
     void TestLottoNumbersLessThanSix() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
+        assertThatThrownBy(() -> new LottoMachine(List.of(1, 2, 3, 4, 5, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -35,14 +35,14 @@ class LottoTest {
     @DisplayName("로또 번호가 45를 넘을때 예외 발생.")
     @Test
     void TestLottoNumberOutOfTheRange1() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 50)))
+        assertThatThrownBy(() -> new LottoMachine(List.of(1, 2, 3, 4, 5, 50)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
     @DisplayName("로또 번호가 1보다 작을때 예외 발생.")
     @Test
     void TestLottoNumberOutOfTheRange2() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 0, 5, 6)))
+        assertThatThrownBy(() -> new LottoMachine(List.of(1, 2, 3, 0, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
@@ -50,7 +50,7 @@ class LottoTest {
     @Test
     void TestLottoToString() {
         String expected = "[8, 21, 23, 41, 42, 43]";
-        Lotto test= new Lotto(List.of(8,21,23,41,42,43));
+        LottoMachine test= new LottoMachine(List.of(8,21,23,41,42,43));
         String actual = test.toString();
         assertEquals(expected,actual,"Expected : " + expected + " but found " + actual);
     }
