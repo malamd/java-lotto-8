@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import lotto.common.SystemMessages;
+
 public class Purchase {
     private static final int LOTTO_PRICE = 1000;
     private static final int PURCHASE_LIMIT = 100000; // 오프라인 구매시 한도
@@ -16,10 +18,10 @@ public class Purchase {
 
     private void validate(int money) {
         if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("[ERROR] TODO"); // TODO:
+            throw new IllegalArgumentException(SystemMessages.THERE_IS_CHANGE.getTypeAndMessage());
         }
         if (money < 0 || money > PURCHASE_LIMIT) { // bound checking
-            throw new IllegalArgumentException("[ERROR] TODO");
+            throw new IllegalArgumentException(SystemMessages.REACH_THE_LIMIT.getTypeAndMessage());
         }
     }
 }

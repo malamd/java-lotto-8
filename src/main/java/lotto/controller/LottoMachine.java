@@ -12,6 +12,7 @@ import lotto.domain.Picks;
 import lotto.domain.Purchase;
 import lotto.domain.WinningNumbers;
 import lotto.dto.EntriesInfo;
+import lotto.dto.StatisticsInfo;
 
 
 /**
@@ -19,7 +20,6 @@ import lotto.dto.EntriesInfo;
  * 주어진 입력으로부터 로또를 얼만큼 발행해야할지 결정하고,당첨 번호와 보너스 번호도 결정합니다.
  * 저장한 발행 로또, 당첨 번호,보너스 번호를 LottoEntryStatistics에 전달하고
  * 받은 당첨내역과 통계를 Output에 전달합니다.
- * 사용자로부터 받은 입력에서 예외를 처리하는 역할 역시 합니다.
  */
 public class LottoMachine {
     private static final String GET_INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
@@ -32,7 +32,7 @@ public class LottoMachine {
     private Picks picks;
 
     // constructor
-    LottoMachine() {
+    public LottoMachine() {
         int purchase = getPurchase();
         entries = getEntries(purchase);
         picks = new Picks(entries); // 주어진 만큼 발행
@@ -44,19 +44,16 @@ public class LottoMachine {
     }
 
     // deliver to LottoOutput
-
     public EntriesInfo getEntriesInfo(){
         return new EntriesInfo(entries,picks);
     }
-
-    public int getStatisticsReport() {
+    public StatisticsInfo getStatisticsInfo(){
         WinningNumbers winningNumbers =  getHandledWinningNumbers();
-        return LottoEntryStatistics.statisticsReport(picks, winningNumbers);
-    }
+        //TODO: winningRate 어떻 데이터 형식으로 받을지
 
-    public HashMap<String,Integer> getWinningRate(){
-        WinningNumbers winningNumbers =  getHandledWinningNumbers();
-        return LottoEntryStatistics.winningRate(picks,winningNumbers);
+        int report =  LottoEntryStatistics.statisticsReport(picks, winningNumbers);
+
+        return null; //TODO: 새로운 객체를 만들어서 return
     }
 
     // helper functions
