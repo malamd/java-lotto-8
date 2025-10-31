@@ -10,7 +10,7 @@ public class Purchase {
         paid = purchased;
     }
 
-    public int getEntries(){ // 사실상 getter랑 동일한 메소드 아닌지????
+    public int getEntries(){ // 사실상 getter랑 동일한 역할 아닌지????
         return paid / LOTTO_PRICE;
     }
 

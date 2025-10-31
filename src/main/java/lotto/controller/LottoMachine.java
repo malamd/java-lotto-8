@@ -11,6 +11,7 @@ import lotto.domain.LottoEntryStatistics;
 import lotto.domain.Picks;
 import lotto.domain.Purchase;
 import lotto.domain.WinningNumbers;
+import lotto.dto.EntriesInfo;
 
 
 /**
@@ -43,6 +44,11 @@ public class LottoMachine {
     }
 
     // deliver to LottoOutput
+
+    public EntriesInfo getEntriesInfo(){
+        return new EntriesInfo(entries,picks);
+    }
+
     public int getStatisticsReport() {
         WinningNumbers winningNumbers =  getHandledWinningNumbers();
         return LottoEntryStatistics.statisticsReport(picks, winningNumbers);
@@ -69,7 +75,7 @@ public class LottoMachine {
     }
 
 
-    // must be used inside of getHandledWinningNumbers
+    // be used in getHandledWinningNumbers only
     private int getWinningNumbersFromInput() {
         System.out.println(GET_INPUT_NUMBERS_MESSAGE);
         String in = Console.readLine();
@@ -83,7 +89,7 @@ public class LottoMachine {
         return bonusNumber;
     }
 
-    //
+
     private List<Integer> getNumbersFromInput() {
         System.out.println(GET_INPUT_BONUS_MESSAGE);
         String in = Console.readLine();
@@ -95,6 +101,7 @@ public class LottoMachine {
         return parser(in);
     }
 
+    // used in getNumbersFromInput only
     private List<Integer> parser(String in) {
         String[] tokens = in.split(DELIMITER);
         return Arrays.stream(tokens)
