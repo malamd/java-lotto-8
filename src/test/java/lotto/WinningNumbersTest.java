@@ -1,6 +1,7 @@
 package lotto;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.util.List;
 import lotto.domain.WinningNumbers;
@@ -8,6 +9,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class WinningNumbersTest {
+    @DisplayName("ApplicationTest에서 정상 작동하는지 테스트")
+    @Test
+    void TestWinningNumbers() {
+        assertDoesNotThrow(() -> new WinningNumbers(List.of(1,2,3,4,5,6),7));
+    }
+
     @DisplayName("당첨 번호가 6개가 아니면 예외가 발생한다")
     @Test
     void throwExceptionForInvalidNumbersSize() {
