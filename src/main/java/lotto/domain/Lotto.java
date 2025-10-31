@@ -4,13 +4,13 @@ import lotto.common.SystemMessages;
 import java.util.List;
 
 // 로또 번호
-public class LottoMachine {
+public class Lotto {
     protected static final int MAX_LOTTO_NUMBER = 45;
     protected static final int MIN_LOTTO_NUMBER = 1;
     private final List<Integer> numbers;
 
 
-    public LottoMachine(List<Integer> numbers) {
+    public Lotto(List<Integer> numbers) {
         validate(numbers);
         this.numbers = numbers;
     }

@@ -64,6 +64,7 @@ public class LottoEntry {
         }
     }
 
+
     private int getWinningNumbersFromInput() {
         System.out.println(GET_INPUT_NUMBERS_MESSAGE);
         String in = Console.readLine();
