@@ -1,25 +1,32 @@
-package lotto;
+package lotto.domain;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import lotto.common.SystemMessages;
 
-// 로또 발행기 역할을 하는 클래스 입니다.
+
+/**
+ * 로또 발행기 클래스입니다.
+ * 주어진 입력으로부터 로또를 얼만큼 발행해야할지 결정하고,당첨 번호와 보너스 번호도 결정합니다.
+ * 저장한 발행 로또, 당첨 번호,보너스 번호를 LottoEntryStatistics에 전달하고
+ * 받은 당첨내역과 통계를 Output에 전달합니다.
+ * 사용자로부터 받은 입력에서 예외를 처리하는 역할 역시 합니다.
+ */
 public class LottoEntry {
-    private final static int LOTTO_PRICE = 1000;
-    private final static int PURCHASE_LIMIT = 1000;
-    private final static String GET_INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
+    private static final int LOTTO_PRICE = 1000;
+    private static final int PURCHASE_LIMIT = 1000;
+    private static final String GET_INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
     private static final String GET_INPUT_NUMBERS_MESSAGE = "당첨 번호를 입력해 주세요.";
-    private final static String GET_INPUT_BONUS_MESSAGE = "보너스 번호를 입력해 주세요.";
-    private final static String PRINT_HOW_MANY_PICKS = "개를 구매했습니다.";
+    private static final String GET_INPUT_BONUS_MESSAGE = "보너스 번호를 입력해 주세요.";
     private static final String INPUT_REGEX = "^[0-9]{1,2}(,[0-9]{1,2}){5}$";
     private static final String DELIMITER = ",";
 
     private int entries;
     private Picks picks;
-    private WinningNumbers winningNumbers;
 
     // constructor
     LottoEntry() {
@@ -27,19 +34,34 @@ public class LottoEntry {
         int purchase = handledPurchase();
         entries = purchase / LOTTO_PRICE;  // 확인 후, 몇번 살지 결정
         picks = new Picks(entries); // 주어진 만큼 발행
-        printHowManyPicks(picks);
-        setHandledWinningNumbers();
-
-
     }
 
-    private void setHandledWinningNumbers() {
-        boolean failed = true;
-        while (failed) {
+    LottoEntry(int purchase, List<Integer> numbers, int bonus) {
+        validatePurchase(purchase);
+        entries = purchase / LOTTO_PRICE;
+        picks = new Picks(entries); // 주어진 만큼 발행
+    }
+
+    // deliver to LottoOutput
+    public int getStatisticsReport() {
+        WinningNumbers winningNumbers =  getHandledWinningNumbers();
+        return LottoEntryStatistics.statisticsReport(picks, winningNumbers);
+    }
+
+    public HashMap<String,Integer> getWinningRate(){
+        WinningNumbers winningNumbers =  getHandledWinningNumbers();
+        return LottoEntryStatistics.winningRate(picks,winningNumbers);
+    }
+
+    // helper functions
+    private WinningNumbers getHandledWinningNumbers() {
+        WinningNumbers winningNumbers;
+        while (true) {
             try {
-                winningNumbers = new WinningNumbers(getNumbersFromInput()
-                        , getWinningNumbersFromInput());
-                failed = false;
+                winningNumbers = new WinningNumbers(getNumbersFromInput(),
+                        getWinningNumbersFromInput());
+                return winningNumbers;
+
             } catch (final IllegalArgumentException e) {
                 e.getLocalizedMessage();
             }
@@ -47,31 +69,18 @@ public class LottoEntry {
     }
 
     private int handledPurchase() {
-        boolean failed = true;
-        int purchase = -1;
-        while (failed) {
+        int purchase;
+        while (true) {
             try {
                 purchase = getPurchase();
                 validatePurchase(purchase);
-                failed = false;
+                return purchase;
             } catch (final IllegalArgumentException e) {
                 e.getLocalizedMessage();
             }
         }
-        return purchase;
     }
 
-    LottoEntry(int purchase, List<Integer> numbers, int bonus) {
-        validatePurchase(purchase);
-        entries = purchase / LOTTO_PRICE;
-        picks = new Picks(entries); // 주어진 만큼 발행
-        winningNumbers = new WinningNumbers(numbers, bonus); // 추첨 번호 받음
-    }
-
-    private void printHowManyPicks(Picks picks) {
-        System.out.println(entries + PRINT_HOW_MANY_PICKS);
-        System.out.println(picks);
-    }
 
     private int getWinningNumbersFromInput() {
         System.out.println(GET_INPUT_NUMBERS_MESSAGE);
@@ -89,9 +98,10 @@ public class LottoEntry {
     private List<Integer> getNumbersFromInput() {
         System.out.println(GET_INPUT_BONUS_MESSAGE);
         String in = Console.readLine();
-        in = in.replaceAll("\\s", ""); //공백 삭제
+        in = in.replaceAll("\\s", ""); // 공백 삭제
         if (!Pattern.matches(INPUT_REGEX, in)) {
-            throw new IllegalArgumentException(SystemMessages.INVALID_INPUT_FORMAT.getTypeAndMessage());
+            throw new IllegalArgumentException(SystemMessages.INVALID_INPUT_FORMAT
+                    .getTypeAndMessage());
         }
         return parser(in);
     }
@@ -118,15 +128,10 @@ public class LottoEntry {
 
     private void validatePurchase(int money) {
         if (money % LOTTO_PRICE != 0) {
-            throw new IllegalArgumentException("[ERROR] TODO"); //TODO
+            throw new IllegalArgumentException("[ERROR] TODO"); // TODO:
         }
         if (money < 0 || money > PURCHASE_LIMIT) { // bound checking
             throw new IllegalArgumentException("[ERROR] TODO");
         }
     }
-
-    public String getStatisticsReport() {
-        return LottoEntryStatistics.statisticsReport(picks, winningNumbers);
-    }
-
 }

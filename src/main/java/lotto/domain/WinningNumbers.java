@@ -1,6 +1,6 @@
-package lotto;
+package lotto.domain;
 
-import camp.nextstep.edu.missionutils.Console;
+import lotto.common.SystemMessages;
 import java.util.List;
 
 // bonus number가 있는 로또 번호입니다. 당첨 번호를 지정할때 사용됩니다.

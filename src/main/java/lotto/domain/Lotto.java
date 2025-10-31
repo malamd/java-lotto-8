@@ -1,10 +1,7 @@
-package lotto;
+package lotto.domain;
 
-import camp.nextstep.edu.missionutils.Console;
-import java.util.Arrays;
+import lotto.common.SystemMessages;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 // 로또 번호
 public class Lotto {

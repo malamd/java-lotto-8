@@ -75,7 +75,6 @@ classDiagram
     }
     
     Lotto <|-- WinningNumbers
-    Lotto <|-- NumberPicks
     
     class LottoController{
     }
@@ -84,6 +83,7 @@ classDiagram
     class LottoOutput{
     }
     
+    NumberPicks<--LottoController
     LottoController --> Lotto
     LottoInput<-->LottoController
     LottoOutput<-->LottoController
