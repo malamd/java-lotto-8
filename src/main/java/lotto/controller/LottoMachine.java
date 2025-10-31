@@ -1,4 +1,4 @@
-package lotto.domain;
+package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lotto.common.SystemMessages;
+import lotto.domain.LottoEntryStatistics;
+import lotto.domain.Picks;
+import lotto.domain.Purchase;
+import lotto.domain.WinningNumbers;
 
 
 /**
@@ -16,7 +20,7 @@ import lotto.common.SystemMessages;
  * 받은 당첨내역과 통계를 Output에 전달합니다.
  * 사용자로부터 받은 입력에서 예외를 처리하는 역할 역시 합니다.
  */
-public class LottoEntry {
+public class LottoMachine {
     private static final String GET_INPUT_PURCHASE_MESSAGE = "구입금액을 입력해 주세요.";
     private static final String GET_INPUT_NUMBERS_MESSAGE = "당첨 번호를 입력해 주세요.";
     private static final String GET_INPUT_BONUS_MESSAGE = "보너스 번호를 입력해 주세요.";
@@ -27,13 +31,13 @@ public class LottoEntry {
     private Picks picks;
 
     // constructor
-    LottoEntry() {
+    LottoMachine() {
         int purchase = getPurchase();
         entries = getEntries(purchase);
         picks = new Picks(entries); // 주어진 만큼 발행
     }
 
-    LottoEntry(int purchase, List<Integer> numbers, int bonus) {
+    LottoMachine(int purchase, List<Integer> numbers, int bonus) {
         entries =  getEntries(purchase);
         picks = new Picks(entries); // 주어진 만큼 발행
     }
@@ -65,6 +69,7 @@ public class LottoEntry {
     }
 
 
+    // must be used inside of getHandledWinningNumbers
     private int getWinningNumbersFromInput() {
         System.out.println(GET_INPUT_NUMBERS_MESSAGE);
         String in = Console.readLine();
@@ -78,6 +83,7 @@ public class LottoEntry {
         return bonusNumber;
     }
 
+    //
     private List<Integer> getNumbersFromInput() {
         System.out.println(GET_INPUT_BONUS_MESSAGE);
         String in = Console.readLine();
@@ -99,7 +105,7 @@ public class LottoEntry {
     private int getEntries(int purchase) {
         while (true) {
             try {
-                entries =  new Entries(purchase).getEntries();// 확인 후, 몇번 살지 결정
+                entries =  new Purchase(purchase).getEntries();// 확인 후, 몇번 살지 결정
                 return purchase;
             } catch (final IllegalArgumentException e) {
                 e.getLocalizedMessage();

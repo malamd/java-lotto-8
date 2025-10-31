@@ -1,11 +1,11 @@
 package lotto.domain;
 
-public class Entries {
+public class Purchase {
     private static final int LOTTO_PRICE = 1000;
-    private static final int PURCHASE_LIMIT = 1000;
+    private static final int PURCHASE_LIMIT = 100000; // 오프라인 구매시 한도
     private int paid;
 
-    public Entries(int purchased){
+    public Purchase(int purchased){
         validate(purchased);
         paid = purchased;
     }
