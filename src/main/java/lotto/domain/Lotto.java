@@ -5,8 +5,8 @@ import java.util.List;
 
 // 로또 번호
 public class Lotto {
-    private static final int MAX_LOTTO_NUMBER = 45;
-    private static final int MIN_LOTTO_NUMBER = 0;
+    protected static final int MAX_LOTTO_NUMBER = 45;
+    protected static final int MIN_LOTTO_NUMBER = 1;
     private final List<Integer> numbers;
 
 

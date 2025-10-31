@@ -6,8 +6,6 @@ import java.util.List;
 // bonus number가 있는 로또 번호입니다. 당첨 번호를 지정할때 사용됩니다.
 public class WinningNumbers extends Lotto {
     private final int bonusNum;
-    private final static int MAX_LOTTO_NUMBER = 45;
-    private final static int MIN_LOTTO_NUMBER = 0;
 
     public WinningNumbers(List<Integer> numbers, int bonusNumber) {
         super(numbers);
@@ -27,12 +25,11 @@ public class WinningNumbers extends Lotto {
                     .getTypeAndMessage());
         }
     }
-
     private boolean isNotInRange(int number) {
-        return getNumbers().contains(number);
+        return number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER;
     }
     private boolean isDuplicated(int number) {
-        return number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER;
+        return getNumbers().contains(number);
     }
 }
 

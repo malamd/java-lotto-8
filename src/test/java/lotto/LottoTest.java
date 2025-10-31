@@ -39,10 +39,10 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
-    @DisplayName("로또 번호가 0보다 작을때 예외 발생.")
+    @DisplayName("로또 번호가 1보다 작을때 예외 발생.")
     @Test
     void TestLottoNumberOutOfTheRange2() {
-        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, -4, 5, 6)))
+        assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 0, 5, 6)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
 
