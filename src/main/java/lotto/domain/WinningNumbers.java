@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.common.SystemMessages;
 import java.util.List;
+import lotto.dto.UserNumbersInfo;
 
 // bonus number가 있는 로또 번호입니다. 당첨 번호를 지정할때 사용됩니다.
 public class WinningNumbers extends Lotto {
@@ -30,6 +31,10 @@ public class WinningNumbers extends Lotto {
     }
     private boolean isDuplicated(int number) {
         return getNumbers().contains(number);
+    }
+
+    public UserNumbersInfo getBonusNumber(){
+        return new UserNumbersInfo(super.getNumbers(), bonusNum);
     }
 }
 

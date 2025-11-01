@@ -1,19 +1,28 @@
 package lotto.domain;
 
+import java.util.Collections;
 import lotto.common.SystemMessages;
 import java.util.List;
+import lotto.dto.UserNumbersInfo;
 
 // 로또 번호
 public class Lotto {
     protected static final int MAX_LOTTO_NUMBER = 45;
     protected static final int MIN_LOTTO_NUMBER = 1;
+    private static final int SIZE=6;
     private final List<Integer> numbers;
 
 
     public Lotto(List<Integer> numbers) {
+        Collections.sort(numbers); // sort in ascending order first, then validate numbers.
         validate(numbers);
         this.numbers = numbers;
     }
+
+    public static int getSize(){
+        return SIZE;
+    }
+
 
     // 중복되지 않는 1에서 45까지의 6개의 숫자인지 확인
     private void validate(List<Integer> numbers) {
@@ -48,6 +57,11 @@ public class Lotto {
         return numbers.toString();
     }
 
+    public UserNumbersInfo getLottoNumber(){
+        return new UserNumbersInfo(numbers);
+    }
+
+    // for children classes
     protected List<Integer> getNumbers() {
         return numbers;
     }

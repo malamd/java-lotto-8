@@ -49,7 +49,7 @@ public class LottoMachine {
     }
     public StatisticsInfo getStatisticsInfo(){
         WinningNumbers winningNumbers =  getHandledWinningNumbers();
-        //TODO: winningRate 어떻 데이터 형식으로 받을지
+        //TODO: winningRate 어떤 데이터 형식으로 받을지
 
         int report =  LottoEntryStatistics.statisticsReport(picks, winningNumbers);
 

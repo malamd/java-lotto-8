@@ -2,21 +2,30 @@ package lotto.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Picks {
-    private final List<List<Integer>> picks;
+    private final List<Lotto> picks;
 
     public Picks(int purchase){
         picks = new ArrayList<>();
         for (int i = 0; i < purchase; i++) {
-            picks.add(Randoms.pickUniqueNumbersInRange(1, 45, 6));
+            Integer [] pick = new Integer[Lotto.getSize()];
+
+            for(int j = 0 ; j < Lotto.getSize() ; i++){
+                pick[j] = Randoms.pickNumberInRange(1,45);
+            }
+
+            picks.add(new Lotto(Arrays.asList(pick)));
         }
+
+
+    }
+    public Lotto getNumberPickAt(int i){
+        return picks.get(i);
     }
 
-    public List<Integer> get(int index){
-        return picks.get(index);
-    }
 
 
     @Override

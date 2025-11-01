@@ -14,8 +14,8 @@ public class EntriesInfo {
     public String getEntries(){
         return Integer.toString(entries);
     }
-    public String getPicks(){
-        return picks.toString();
+    public Picks getPicks(){
+        return picks;
     }
 
 }
