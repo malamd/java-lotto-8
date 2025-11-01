@@ -1,5 +1,7 @@
 package lotto.dto;
 
+import java.util.List;
+import lotto.domain.Lotto;
 import lotto.domain.Picks;
 
 public class EntriesInfo {
@@ -14,8 +16,8 @@ public class EntriesInfo {
     public String getEntries(){
         return Integer.toString(entries);
     }
-    public Picks getPicks(){
-        return picks;
+    public List<Lotto> getPicks(){
+        return picks.getPicks();
     }
 
 }

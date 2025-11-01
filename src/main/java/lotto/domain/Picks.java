@@ -42,12 +42,6 @@ public class Picks {
 
     @Override
     public String toString() {
-        //TODO: picks에 있는 모든 추첨권들을 주어진 형식에 맞는 문자열로 바꿔야함
-        /*
-        *예시 : [8, 21, 23, 41, 42, 43]
-                [3, 5, 11, 16, 32, 38]
-                [7, 11, 16, 35, 36, 44]
-         */
         StringBuilder bf = new StringBuilder();
         for(int i = 0 ; i < purchase ; i++){
             bf.append(picks.get(i).toString());

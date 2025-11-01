@@ -1,10 +1,8 @@
 package lotto.dto;
 
 import java.util.Arrays;
-import lotto.domain.Picks;
 
 public class StatisticsInfo {
-    //TODO: 구현
     private Integer[] winningCounts;
     float yieldPercentage;
 
