@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import lotto.common.SystemMessages;
 import java.util.List;
@@ -10,11 +11,10 @@ public class Lotto {
     protected static final int MAX_LOTTO_NUMBER = 45;
     protected static final int MIN_LOTTO_NUMBER = 1;
     private static final int SIZE=6;
-    private final List<Integer> numbers;
+    protected final List<Integer> numbers;
 
 
     public Lotto(List<Integer> numbers) {
-        Collections.sort(numbers); // sort in ascending order first, then validate numbers.
         validate(numbers);
         this.numbers = numbers;
     }
@@ -54,16 +54,15 @@ public class Lotto {
 
     @Override
     public String toString() {
-        return numbers.toString();
+        List<Integer> forOutput = List.copyOf(this.numbers); //불변이기 때문에 카피 생성
+        Collections.sort(forOutput);// testcase 때문에 출력할때 정렬함
+
+        return forOutput.toString();
     }
 
-    public UserNumbersInfo getLottoNumber(){
-        return new UserNumbersInfo(numbers);
+    public UserNumbersInfo get(){
+        return new UserNumbersInfo(List.copyOf(numbers));
     }
 
-    // for children classes
-    protected List<Integer> getNumbers() {
-        return numbers;
-    }
 
 }

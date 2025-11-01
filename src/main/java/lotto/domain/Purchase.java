@@ -5,18 +5,18 @@ import lotto.common.SystemMessages;
 public class Purchase {
     private static final int LOTTO_PRICE = 1000;
     private static final int PURCHASE_LIMIT = 100000; // 오프라인 구매시 한도
-    private int paid;
+    private long paid;
 
-    public Purchase(int purchased){
+    public Purchase(long purchased){
         validate(purchased);
         paid = purchased;
     }
 
     public int getEntries(){ // 사실상 getter랑 동일한 역할 아닌지????
-        return paid / LOTTO_PRICE;
+        return Math.toIntExact(paid / LOTTO_PRICE);
     }
 
-    private void validate(int money) {
+    private void validate(long money) {
         if (money % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(SystemMessages.THERE_IS_CHANGE.getTypeAndMessage());
         }

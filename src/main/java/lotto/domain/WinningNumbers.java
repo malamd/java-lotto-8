@@ -30,11 +30,11 @@ public class WinningNumbers extends Lotto {
         return number < MIN_LOTTO_NUMBER || number > MAX_LOTTO_NUMBER;
     }
     private boolean isDuplicated(int number) {
-        return getNumbers().contains(number);
+        return super.numbers.contains(number);
     }
 
-    public UserNumbersInfo getBonusNumber(){
-        return new UserNumbersInfo(super.getNumbers(), bonusNum);
+    public UserNumbersInfo get(){
+        return new UserNumbersInfo(super.numbers, bonusNum);
     }
 }
 

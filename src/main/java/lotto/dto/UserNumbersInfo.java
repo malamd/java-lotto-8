@@ -16,7 +16,7 @@ public class UserNumbersInfo {
     }
 
     public List<Integer> getLottoNumbers(){
-        return numbers;
+        return List.copyOf(this.numbers);
     }
     public int getBonusNumber(){
         return bonusNumber;

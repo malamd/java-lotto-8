@@ -2,7 +2,6 @@ package lotto.controller;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -30,10 +29,11 @@ public class LottoMachine {
 
     private int entries;
     private Picks picks;
+    private long purchase;
 
     // constructor
     public LottoMachine() {
-        int purchase = getPurchase();
+        purchase = getPurchase();
         entries = getEntries(purchase);
         picks = new Picks(entries); // 주어진 만큼 발행
     }
@@ -48,12 +48,12 @@ public class LottoMachine {
         return new EntriesInfo(entries,picks);
     }
     public StatisticsInfo getStatisticsInfo(){
-        WinningNumbers winningNumbers =  getHandledWinningNumbers();
-        //TODO: winningRate 어떤 데이터 형식으로 받을지
+        WinningNumbers winningNumbers = getHandledWinningNumbers();
 
-        int report =  LottoEntryStatistics.statisticsReport(picks, winningNumbers);
+        Integer[] report =  LottoEntryStatistics.winningCounts(picks,winningNumbers.get());
+        float winningRate = LottoEntryStatistics.yieldPercentage(report,purchase);
 
-        return null; //TODO: 새로운 객체를 만들어서 return
+        return new StatisticsInfo(report,winningRate);
     }
 
     // helper functions
@@ -106,11 +106,11 @@ public class LottoMachine {
                 .collect(Collectors.toList());
     }
 
-    private int getEntries(int purchase) {
+    private int getEntries(long purchase) {
         while (true) {
             try {
                 entries =  new Purchase(purchase).getEntries();// 확인 후, 몇번 살지 결정
-                return purchase;
+                return entries;
             } catch (final IllegalArgumentException e) {
                 e.getLocalizedMessage();
             }
