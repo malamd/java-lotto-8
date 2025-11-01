@@ -8,6 +8,7 @@ public class LottoGame {
         LottoMachine lottoMachine = new LottoMachine();
         LottoOutput lottoOutput = new LottoOutput();
         lottoOutput.printHowManyPicks(lottoMachine.getEntriesInfo());
+        lottoOutput.printStatistic(lottoMachine.getStatisticsInfo());
     }
 
 }

@@ -54,14 +54,14 @@ public class Lotto {
 
     @Override
     public String toString() {
-        List<Integer> forOutput = List.copyOf(this.numbers); //불변이기 때문에 카피 생성
+        List<Integer> forOutput = new ArrayList<>(this.numbers); //불변이기 때문에 카피 생성
         Collections.sort(forOutput);// testcase 때문에 출력할때 정렬함
 
         return forOutput.toString();
     }
 
     public UserNumbersInfo get(){
-        return new UserNumbersInfo(List.copyOf(numbers));
+        return new UserNumbersInfo(List.copyOf(numbers)); // 그대로 반환하면 외부에서 접근이 가능해지기 때문에 복사본 생성
     }
 
 

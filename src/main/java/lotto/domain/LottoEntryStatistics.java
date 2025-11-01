@@ -23,7 +23,7 @@ public class LottoEntryStatistics {
         total+=winningCounts[FOURTH.getIndex()]* FOURTH.getPrize();
         total+=winningCounts[FIFTH.getIndex()]* FIFTH.getPrize();
 
-        return (float)total/purchase;
+        return (float)total/purchase*100;
     }
 
     public static Integer[] winningCounts(Picks picks, UserNumbersInfo info) {

@@ -25,7 +25,7 @@ public class StatisticsTest {
         Arrays.fill(winningCounts, 0); // 배열의 모든 요소를 0으로 초기화
         winningCounts[FIFTH.getIndex()] = 1;
         long purchaseAmount = 8000;
-        float expectedYield = (float) FIFTH.getPrize() / purchaseAmount;
+        float expectedYield = ((float) FIFTH.getPrize() / purchaseAmount) * 100;
         float actualYield = LottoEntryStatistics.yieldPercentage(winningCounts, purchaseAmount);
         assertThat(actualYield).isEqualTo(expectedYield);
     }
@@ -38,7 +38,7 @@ public class StatisticsTest {
         winningCounts[FOURTH.getIndex()] = 1; // 4등 1개
         winningCounts[FIFTH.getIndex()] = 2;  // 5등 2개
         long purchaseAmount = 10000; // 10장 구매
-        float expectedYield = (float) (FOURTH.getPrize() * 1 + FIFTH.getPrize() * 2) / purchaseAmount;
+        float expectedYield = ((float) (FOURTH.getPrize() * 1 + FIFTH.getPrize() * 2) / purchaseAmount) * 100;
         float actualYield = LottoEntryStatistics.yieldPercentage(winningCounts, purchaseAmount);
         assertThat(actualYield).isEqualTo(expectedYield);
     }

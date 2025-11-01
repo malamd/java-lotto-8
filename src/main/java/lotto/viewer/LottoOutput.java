@@ -11,7 +11,17 @@ public class LottoOutput {
         System.out.println(info.getEntries() + PRINT_HOW_MANY_ENTRIES);
         System.out.println(info.getPicks());
     }
-    private void printStatistic(StatisticsInfo info) {
-        //TODO: format printing
+    public void printStatistic(StatisticsInfo info) {
+        Integer[] winningCounts = info.getWinningCounts();
+        float yieldPercentage = info.getYieldPercentage();
+
+        //TODO: format output
+        for(Integer i : winningCounts){
+            System.out.println(i);
+        }
+
+        System.out.println(yieldPercentage);
+
+
     }
 }

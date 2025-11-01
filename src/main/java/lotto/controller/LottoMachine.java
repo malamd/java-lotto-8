@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lotto.common.SystemMessages;
+import lotto.domain.Entries;
 import lotto.domain.LottoEntryStatistics;
 import lotto.domain.Picks;
-import lotto.domain.Purchase;
 import lotto.domain.WinningNumbers;
 import lotto.dto.EntriesInfo;
 import lotto.dto.StatisticsInfo;
@@ -27,20 +27,15 @@ public class LottoMachine {
     private static final String INPUT_REGEX = "^[0-9]{1,2}(,[0-9]{1,2}){5}$";
     private static final String DELIMITER = ",";
 
-    private int entries;
-    private Picks picks;
-    private long purchase;
+    private final int entries;
+    private final Picks picks;
+    private final long purchase;
 
     // constructor
     public LottoMachine() {
-        purchase = getPurchase();
-        entries = getEntries(purchase);
-        picks = new Picks(entries); // 주어진 만큼 발행
-    }
-
-    LottoMachine(int purchase, List<Integer> numbers, int bonus) {
-        entries =  getEntries(purchase);
-        picks = new Picks(entries); // 주어진 만큼 발행
+        this.purchase = getValidPurchaseAmount();
+        this.entries = new Entries(this.purchase).getEntries();
+        this.picks = new Picks(this.entries);
     }
 
     // deliver to LottoOutput
@@ -58,77 +53,60 @@ public class LottoMachine {
 
     // helper functions
     private WinningNumbers getHandledWinningNumbers() {
-        WinningNumbers winningNumbers;
         while (true) {
             try {
-                winningNumbers = new WinningNumbers(getNumbersFromInput(),
-                        getWinningNumbersFromInput());
-                return winningNumbers;
-
-            } catch (final IllegalArgumentException e) {
-                e.getLocalizedMessage();
+                List<Integer> numbers = getNumbersFromInput();
+                int bonusNumber = getBonusNumberFromInput();
+                return new WinningNumbers(numbers, bonusNumber);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
             }
         }
     }
 
-
-    // be used in getHandledWinningNumbers only
-    private int getWinningNumbersFromInput() {
-        System.out.println(GET_INPUT_NUMBERS_MESSAGE);
-        String in = Console.readLine();
-        int bonusNumber = -1;
-        try {
-            bonusNumber = Integer.parseInt(in);
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException(SystemMessages.INVALID_INTEGER_FORMAT
-                    .getTypeAndMessage());
-        }
-        return bonusNumber;
-    }
-
-
-    private List<Integer> getNumbersFromInput() {
+    private int getBonusNumberFromInput() {
         System.out.println(GET_INPUT_BONUS_MESSAGE);
         String in = Console.readLine();
-        in = in.replaceAll("\\s", ""); // 공백 삭제
+        try {
+            return Integer.parseInt(in);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(SystemMessages.INVALID_INTEGER_FORMAT.getTypeAndMessage());
+        }
+    }
+
+    private List<Integer> getNumbersFromInput() {
+        System.out.println(GET_INPUT_NUMBERS_MESSAGE);
+        String in = Console.readLine().replaceAll("\\s", "");
         if (!Pattern.matches(INPUT_REGEX, in)) {
-            throw new IllegalArgumentException(SystemMessages.INVALID_INPUT_FORMAT
-                    .getTypeAndMessage());
+            throw new IllegalArgumentException(SystemMessages.INVALID_INPUT_FORMAT.getTypeAndMessage());
         }
         return parser(in);
     }
 
-    // used in getNumbersFromInput only
     private List<Integer> parser(String in) {
-        String[] tokens = in.split(DELIMITER);
-        return Arrays.stream(tokens)
+        return Arrays.stream(in.split(DELIMITER))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
-    private int getEntries(long purchase) {
+    private long getValidPurchaseAmount() {
+        System.out.println(GET_INPUT_PURCHASE_MESSAGE);
         while (true) {
             try {
-                entries =  new Purchase(purchase).getEntries();// 확인 후, 몇번 살지 결정
-                return entries;
+                long purchaseAmount = purchaseParser(Console.readLine());
+                new Entries(purchaseAmount); // 유효성 검사를 위해 Entries 객체 생성
+                return purchaseAmount;
             } catch (final IllegalArgumentException e) {
-                e.getLocalizedMessage();
+                System.out.println(e.getMessage());
             }
         }
     }
 
-
-    private int getPurchase() {
-        System.out.println(GET_INPUT_PURCHASE_MESSAGE);
-        String in = Console.readLine();
-        int purchase = -1;
-        try {
-            purchase = Integer.parseInt(in);
-        } catch (final NumberFormatException e) {
-            throw new IllegalArgumentException(SystemMessages.INVALID_INTEGER_FORMAT
-                    .getTypeAndMessage());
+    private long purchaseParser(String in){
+        try{
+            return Long.parseLong(in);
+        }catch(NumberFormatException e){
+            throw new IllegalArgumentException(SystemMessages.INVALID_INTEGER_FORMAT.getTypeAndMessage());
         }
-        return purchase;
     }
-
 }
