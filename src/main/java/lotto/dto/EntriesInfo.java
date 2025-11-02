@@ -13,8 +13,8 @@ public class EntriesInfo {
         this.picks = numberPicks;
     }
 
-    public String getEntries(){
-        return Integer.toString(entries);
+    public int getEntries(){
+        return entries;
     }
     public List<Lotto> getPicks(){
         return picks.getPicks();

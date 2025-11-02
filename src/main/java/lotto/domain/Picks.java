@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lotto.dto.UserNumbersInfo;
 
 public class Picks {
@@ -16,12 +17,8 @@ public class Picks {
         this.purchase = purchase;
         picks = new ArrayList<>();
         for (int i = 0; i < purchase; i++) {
-            Set<Integer> uniqueNumbers = new HashSet<>();
-            while (uniqueNumbers.size() < Lotto.getSize()) {
-                int randomNumber = Randoms.pickNumberInRange(1, 45);
-                uniqueNumbers.add(randomNumber);
-            }
-            picks.add(new Lotto(new ArrayList<>(uniqueNumbers)));
+            List<Integer> uniqueNumbers = Randoms.pickUniqueNumbersInRange(1,45,6);
+            picks.add(new Lotto(uniqueNumbers));
         }
     }
 
@@ -36,18 +33,15 @@ public class Picks {
     }
 
     public List<Lotto> getPicks() {
-        return Collections.unmodifiableList(picks); // 외부에서 변경 불가능하게 unmodifiable list로 반환
+        return Collections.unmodifiableList(picks);
     }
 
 
     @Override
     public String toString() {
-        StringBuilder bf = new StringBuilder();
-        for(int i = 0 ; i < purchase ; i++){
-            bf.append(picks.get(i).toString());
-            bf.append('\n');
-        }
-        return bf.toString();
+        return picks.stream()
+                .map(Lotto::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     public int size() {

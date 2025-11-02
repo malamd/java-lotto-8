@@ -12,7 +12,7 @@ import lotto.dto.UserNumbersInfo;
 
 public class LottoEntryStatistics {
     private final static String REPORT_MESSAGE = "";
-
+    private final static int RANK =5;
     //TODO: 통계 테스트
 
     public static float yieldPercentage(Integer[] winningCounts, long purchase){
@@ -27,7 +27,7 @@ public class LottoEntryStatistics {
     }
 
     public static Integer[] winningCounts(Picks picks, UserNumbersInfo info) {
-        Integer[] winningCounts = new Integer[Lotto.getSize()];
+        Integer[] winningCounts = new Integer[RANK];
         Arrays.fill(winningCounts, 0);
 
         for (int i = 0; i < picks.size(); i++) {
