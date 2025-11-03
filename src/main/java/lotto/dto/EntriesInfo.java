@@ -14,10 +14,10 @@ public class EntriesInfo {
     /**
      * EntriesInfo 객체를 생성합니다.
      *
-     * @param entries 구매한 로또의 총 개수.
+     * @param entries     구매한 로또의 총 개수.
      * @param numberPicks 구매한 로또들의 묶음 객체.
      */
-    public EntriesInfo(int entries, Picks numberPicks){
+    public EntriesInfo(int entries, Picks numberPicks) {
         this.entries = entries;
         this.picks = numberPicks;
     }
@@ -27,7 +27,7 @@ public class EntriesInfo {
      *
      * @return 로또 구매 개수.
      */
-    public int getEntries(){
+    public int getEntries() {
         return entries;
     }
 
@@ -36,7 +36,7 @@ public class EntriesInfo {
      *
      * @return 수정 불가능한 로또 리스트.
      */
-    public List<Lotto> getPicks(){
+    public List<Lotto> getPicks() {
         return picks.getPicks();
     }
 

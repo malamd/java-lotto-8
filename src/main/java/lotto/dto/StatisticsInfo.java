@@ -12,10 +12,10 @@ public class StatisticsInfo {
     /**
      * StatisticsInfo 객체를 생성합니다.
      *
-     * @param winningCounts 각 등수별 당첨 횟수를 담은 배열.
+     * @param winningCounts   각 등수별 당첨 횟수를 담은 배열.
      * @param yieldPercentage 계산된 총 수익률(%).
      */
-    public StatisticsInfo(Integer[] winningCounts, float yieldPercentage){
+    public StatisticsInfo(Integer[] winningCounts, float yieldPercentage) {
         this.winningCounts = winningCounts;
         this.yieldPercentage = yieldPercentage;
     }
@@ -25,8 +25,8 @@ public class StatisticsInfo {
      *
      * @return 당첨 횟수 배열의 복사본.
      */
-    public Integer[] getWinningCounts(){
-        return Arrays.copyOf(winningCounts,winningCounts.length);
+    public Integer[] getWinningCounts() {
+        return Arrays.copyOf(winningCounts, winningCounts.length);
     }
 
     /**
@@ -34,7 +34,7 @@ public class StatisticsInfo {
      *
      * @return 총 수익률(%).
      */
-    public float getYieldPercentage(){
+    public float getYieldPercentage() {
         return yieldPercentage;
     }
 

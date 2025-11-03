@@ -11,13 +11,12 @@ public class Entries {
     private long paid;
 
     /**
-     * 구매 금액으로 Entries 객체를 생성합니다.
-     * 생성 시 구매 금액의 유효성(1,000원 단위, 구매 한도)을 검사합니다.
+     * 구매 금액으로 Entries 객체를 생성합니다. 생성 시 구매 금액의 유효성(1,000원 단위, 구매 한도)을 검사합니다.
      *
      * @param purchased 사용자가 지불한 구매 금액.
      * @throws IllegalArgumentException 구매 금액이 1,000원 단위가 아니거나, 0원 미만 또는 구매 한도를 초과할 경우 발생합니다.
      */
-    public Entries(long purchased){
+    public Entries(long purchased) {
         validate(purchased);
         paid = purchased;
     }
@@ -27,7 +26,7 @@ public class Entries {
      *
      * @return 구매 가능한 로또의 개수.
      */
-    public int getEntries(){ // 사실상 getter랑 동일한 역할 아닌지????
+    public int getEntries() {
         return Math.toIntExact(paid / LOTTO_PRICE);
     }
 

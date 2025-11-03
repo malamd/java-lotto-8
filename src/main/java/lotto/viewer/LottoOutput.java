@@ -15,8 +15,7 @@ public class LottoOutput {
     private static final String PRINT_RESULT_TITLE = "당첨 통계\n---";
 
     /**
-     * 구매한 로또의 개수와 각 로또의 번호를 출력합니다.
-     * 예시 출력:
+     * 구매한 로또의 개수와 각 로또의 번호를 출력합니다. 예시:
      * <pre>
      * 8개를 구매했습니다.
      * [8, 21, 23, 41, 42, 43]
@@ -33,9 +32,7 @@ public class LottoOutput {
     }
 
     /**
-     * 최종 당첨 통계와 총 수익률을 출력합니다.
-     * 각 등수별 당첨 개수와 총 수익률을 정해진 형식에 맞춰 출력합니다.
-     * 예시 출력:
+     * 최종 당첨 통계와 총 수익률을 출력합니다. 각 등수별 당첨 개수와 총 수익률을 정해진 형식에 맞춰 출력합니다. 예시:
      * <pre>
      * 당첨 통계
      * ---
@@ -61,11 +58,9 @@ public class LottoOutput {
     }
 
     // helper function for printStatistic, only be used in printStatistic
-    private String getRankString(int i, int counts) { //TODO: 코드양 줄이는 방법?
+    private String getRankString(int i, int counts) {
 
-        /**
-         * Code Assistant가 제안한 수정방안 - 기존: 여러개의 if 문
-         */
+        // Code Assistant가 제안한 수정방안 - 기존: 여러개의 if 문
         for (WinningDetails detail : WinningDetails.values()) {
             if (detail.getIndex() == i) {
                 String prize = NumberFormat.getInstance().format(detail.getPrize());

@@ -17,8 +17,7 @@ public class Lotto {
     protected final List<Integer> numbers;
 
     /**
-     * 주어진 숫자 리스트로 로또 객체를 생성합니다.
-     * 생성 시 로또 번호의 유효성(개수, 중복, 범위)을 검사합니다.
+     * 주어진 숫자 리스트로 로또 객체를 생성합니다. 생성 시 로또 번호의 유효성(개수, 중복, 범위)을 검사합니다.
      *
      * @param numbers 로또 번호를 담은 숫자 리스트
      * @throws IllegalArgumentException 로또 번호가 6개가 아니거나, 중복된 숫자가 있거나, 1-45 범위를 벗어나는 숫자가 있을 경우 발생합니다.
@@ -27,7 +26,6 @@ public class Lotto {
         validate(numbers);
         this.numbers = numbers;
     }
-
 
 
     /**
@@ -80,8 +78,7 @@ public class Lotto {
     }
 
     /**
-     * 현재 로또 번호를 UserNumberInfo로 반환합니다.
-     * 반환된 값은 getLottoNumbers()로 번호를 가져올 수 있습니다.
+     * 현재 로또 번호를 UserNumberInfo로 반환합니다. 반환된 값은 getLottoNumbers()로 번호를 가져올 수 있습니다.
      *
      * @return 로또 번호 정보를 담고 있는 UserNumbersInfo
      */
