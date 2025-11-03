@@ -1,5 +1,16 @@
 # java-lotto-precourse
 ***
+### 설명
+로또 발매기는 로또 구입 금액을 입력하면 구입 금액만큼 해당하는 로또를 발행하고, 그다음 입력받은 당첨 번호와 보너스 번호를 비교해
+당첨 내역 및 수익률을 출력하고 로또 게임을 종료합니다. 만약 잘못된 값을 입력하면, 올바른 값을 입력할때 까지 입력을 다시 받습니다. 
+
+### 유의 사항 
+- 로또 구입금액은 1000원 단위로 입력해야 하며 , 오프라인 구매시 최대 한도인
+100,000을 넘을 수 없습니다.
+- 로또 번호 숫자 범위는 1~45까지 이며, 하나의 로또 번호는 중복되지 않는 6개의 숫자입니다. 
+- 로또 번호를 입력할때 ,를 구분자로 받습니다. 
+- 보너스 번호는 기존 로또 번호와 중복 될 수 없습니다. 
+***
 ## 구현해야 할 목록
 ### 로또 
 ~~숫자 범위 1-45~~  
@@ -25,11 +36,10 @@
 "[ERROR]"로 시작하는 에러 메시지를 출력 후 그 부분부터 입력을 다시 받는다.~~  
 
 ### 출력
-주어진 예시대로 결과 출력  
+~~주어진 예시대로 결과 출력~~  
 
 ***
-## Sequence Diagram
-# 주의! 확정 아님 
+## 참고용) Sequence Diagram
 
 ```mermaid
 sequenceDiagram
@@ -56,33 +66,4 @@ end
 로또 발행기 ->> 로또 게임: 당첨 번호, 보너스 번호 전달
 로또 게임 ->> 로또 발행기: 당첨 통계 및 수익률 전달 
 로또 발행기 ->> User: 발행한 로또 수량, 번호, 당첨 통계 및 수익률 표시 
-```
-
-## Class Diagram
-# 주의! 확정 아님
-winning number랑 picks랑 strategy로 구현할수도??
-```mermaid
-classDiagram
-    class Lotto{
-    List~Integer~ numbers
-    -validate()
-    }
-    
-    class WinningNumbers{
-    }
-    
-    class NumberPicks{
-    }
-    
-    Lotto <|-- WinningNumbers
-    
-    class LottoController{
-    }
-
-    class LottoOutput{
-    }
-    
-    NumberPicks<--LottoController
-    LottoController --> Lotto
-    LottoOutput<-->LottoController
 ```

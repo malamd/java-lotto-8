@@ -6,7 +6,7 @@ import lotto.common.SystemMessages;
 import java.util.List;
 import lotto.dto.UserNumbersInfo;
 
-// 로또 번호
+// 로또 번호를 담당하는 클래스입니다.
 public class Lotto {
     protected static final int MAX_LOTTO_NUMBER = 45;
     protected static final int MIN_LOTTO_NUMBER = 1;

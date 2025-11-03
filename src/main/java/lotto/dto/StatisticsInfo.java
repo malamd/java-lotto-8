@@ -2,6 +2,7 @@ package lotto.dto;
 
 import java.util.Arrays;
 
+//
 public class StatisticsInfo {
     private Integer[] winningCounts;
     float yieldPercentage;

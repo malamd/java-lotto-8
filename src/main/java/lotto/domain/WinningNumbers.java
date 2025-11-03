@@ -16,12 +16,12 @@ public class WinningNumbers extends Lotto {
 
 
     private void validateBonusNumber(int bonusNumber) {
-        if (isDuplicated(bonusNumber)) {
+        if (isDuplicated(bonusNumber)) { // 로또 번호와 중복되는 보너스 번호일 경우
             throw new IllegalArgumentException(SystemMessages.DUPLICATED_LOTTO_NUMBER_FOUND
                     .getTypeAndMessage());
         }
 
-        if(isNotInRange(bonusNumber)){
+        if(isNotInRange(bonusNumber)){ // 범위를 벗어난 보너스 번호일 경우
             throw new IllegalArgumentException(SystemMessages.INVALID_LOTTO_NUMBER_RANGE
                     .getTypeAndMessage());
         }

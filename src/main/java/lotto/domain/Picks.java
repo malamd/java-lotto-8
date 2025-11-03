@@ -3,16 +3,16 @@ package lotto.domain;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import lotto.dto.UserNumbersInfo;
 
+// 발행한 로또 번호들을 모아둔 클래스 입니다.
 public class Picks {
     private final List<Lotto> picks;
     private final int purchase;
 
+    // constructor for actual Application
     public Picks(int purchase){
         this.purchase = purchase;
         picks = new ArrayList<>();
@@ -22,19 +22,29 @@ public class Picks {
         }
     }
 
-    // 테스트를 위한 생성자 추가
+    // constructor for test
     public Picks(List<Lotto> picks) {
         this.picks = picks;
         this.purchase = picks.size();
     }
 
+    /**
+     *
+     * @param i index of picks
+     * @return UserNumbersInfo
+     */
     public UserNumbersInfo getNumbersPickAt(int i){
         return picks.get(i).get();
     }
 
+    /**
+     *
+     * @return unmodifiable List <Lotto>
+     */
     public List<Lotto> getPicks() {
         return Collections.unmodifiableList(picks);
     }
+
 
 
     @Override

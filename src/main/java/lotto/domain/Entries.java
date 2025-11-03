@@ -2,6 +2,7 @@ package lotto.domain;
 
 import lotto.common.SystemMessages;
 
+//로또가 몇개 발행 됐는지 확인하는 클래스입니다.
 public class Entries {
     private static final int LOTTO_PRICE = 1000;
     private static final int PURCHASE_LIMIT = 100000; // 오프라인 구매시 한도
